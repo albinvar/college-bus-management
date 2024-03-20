@@ -26,6 +26,7 @@ class FortifyServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
+    // modify the boot method to use custom guards based on the selected user type
     public function boot(): void
     {
         Fortify::createUsersUsing(CreateNewUser::class);
@@ -41,6 +42,22 @@ class FortifyServiceProvider extends ServiceProvider
 
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
+        });
+
+        Fortify::authenticateUsing(function (Request $request) {
+            //get the user type from the request
+            $userType = $request->input('role');
+
+            //use the user type to determine the guard to use
+            config(['auth.defaults.guard' => $userType]);
+
+            //authenticate the user by identifying the user model from the guard
+            $user = auth()->guard($userType)->user();
+
+            if ($user &&
+                Hash::check($request->password, $user->password)) {
+                return $user;
+            }
         });
     }
 }
