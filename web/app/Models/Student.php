@@ -9,6 +9,8 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $guard_name = 'student';
+
     protected $fillable = [
         'name',
         'email',
