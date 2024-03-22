@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix'=>'student','middleware'=>['student:student']],function(){
+    Route::get('/login', [StudentController::class, 'loginForm']);
+    Route::post('/login', [StudentController::class, 'store'])->name('student.login');
+});
+
+Route::middleware(['auth:sanctum,student', 'verified'])->get('/student/dashboard', function () {
+    return view('dashboard');
+})->name('student.dashboard');
+
 
 Route::middleware([
     'auth:sanctum',
