@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Bus extends Model
 {
@@ -26,9 +27,14 @@ class Bus extends Model
         return $this->hasMany(BusBoardingPoint::class);
     }
 
-    public function students(): BelongsToMany
+    public function boardingPoints(): BelongsToMany
     {
-        return $this->belongsToMany(Student::class);
+        return $this->belongsToMany(BoardingPoint::class, 'bus_boarding_points');
+    }
+
+    public function students(): hasManyThrough
+    {
+        return $this->hasManyThrough(User::class, BusBoardingPoint::class, 'bus_id', 'bus_boarding_point_id')->with('student')->role('student');
     }
 
     public function driver(): hasMany

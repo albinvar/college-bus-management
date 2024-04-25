@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccessLogController;
 use App\Http\Controllers\BusController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,5 +48,7 @@ Route::middleware([
     })->name('student.semesters');
 
     Route::get('/access-logs/{bus}', [AccessLogController::class, 'busShow',])->name('admin.manage-bus.access-logs');
+
+    Route::get('/{bus}/students', [StudentController::class, 'busStudentsShow',])->name('admin.manage-bus.students');
 
 });

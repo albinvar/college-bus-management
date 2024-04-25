@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bus;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
@@ -62,5 +63,12 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+
+    public function busStudentsShow(Bus $bus)
+    {
+        // get all students for the bus
+        $students = $bus->students()->get();
+        return view('roles.admin.manage-bus.students', compact('students'));
     }
 }
