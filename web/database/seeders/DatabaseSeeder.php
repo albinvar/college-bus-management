@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
         // Seed the settings
         $this->call(SettingsSeeder::class);
 
-        // Seed the buses
-        \App\Models\Bus::factory(5)->create();
-
         // Seed the boarding points
         $this->call(BoardingPointSeeder::class);
+
+        // Seed the buses
+        $this->call(BusSeeder::class);
 
         // Attach boarding points to buses
         $this->call(BusBoardingPointSeeder::class);
@@ -31,36 +31,50 @@ class DatabaseSeeder extends Seeder
         \App\Models\Semester::factory(5)->create();
 
         // Seed the students
-         $student = \App\Models\Student::factory()->create([
-            'boarding_point' => 'Kathmand',
-            'drop_off_point' => 'Pokhara',
+        $student = \App\Models\Student::factory()->create([
+            'boarding_point' => 'Kumaranelloor',
+            'drop_off_point' => 'Kumaranelloor',
              'user_id' => \App\Models\User::factory()->create([
-                 'name' => 'John Doe',
+                 'name' => 'Amithamol Varghese',
                  'email' => 'student1@gmail.com',
                  'password' => bcrypt('password'),
                 ])->id,
          ]);
 
-         // assign the role of student to the user
-        $student->user->assignRole('student');
-
-        // Get a random bus
-        $bus = \App\Models\Bus::inRandomOrder()->first();
-
-        // Get a random boarding point
-        $boardingPoint = \App\Models\BoardingPoint::inRandomOrder()->first();
-
-        // Create a new bus boarding point
-        $busBoardingPoint = $student->user->busBoardingPoint()->create([
-            'bus_id' => $bus->id,
-            'boarding_point_id' => $boardingPoint->id,
-            'morning_reach_time' => '07:00:00',
-            'evening_reach_time' => '17:00:00',
+        // Seed the students
+        $student2 = \App\Models\Student::factory()->create([
+            'boarding_point' => 'Pathnadu',
+            'drop_off_point' => 'Pathnadu',
+             'user_id' => \App\Models\User::factory()->create([
+                 'name' => 'Albin Varghese',
+                 'email' => 'student2@gmail.com',
+                 'password' => bcrypt('password'),
+                 ])->id,
         ]);
+
+        // assign the role of student to the users
+        $student->user->assignRole('student');
+        $student2->user->assignRole('student');
+
+        // get bus boarding point based on a place
+        $busBoardingPoint = \App\Models\BusBoardingPoint::whereHas('boardingPoint', function ($query) {
+            $query->where('place', 'Kumaranelloor');
+        })->first();
 
         // Update the bus_boarding_point_id in the users table
         $student->user->bus_boarding_point_id = $busBoardingPoint->id;
         $student->user->save();
+
+        // 2nd student
+
+        // get bus boarding point based on a place
+        $busBoardingPoint2 = \App\Models\BusBoardingPoint::whereHas('boardingPoint', function ($query) {
+            $query->where('place', 'Pathnadu');
+        })->first();
+
+        // Update the bus_boarding_point_id in the users table
+        $student2->user->bus_boarding_point_id = $busBoardingPoint2->id;
+        $student2->user->save();
 
         // seed the semester for the student
         \App\Models\StudentSemester::factory()->create([
@@ -132,7 +146,7 @@ class DatabaseSeeder extends Seeder
         $driver->user->assignRole('driver');
 
         // assign the bus to the driver
-        $driver->bus_id = $bus->id;
+        $driver->bus_id = $busBoardingPoint->bus_id;
         $driver->save();
 
 

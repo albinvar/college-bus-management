@@ -14,6 +14,23 @@ class BoardingPointSeeder extends Seeder
     public function run(): void
     {
         // Seed the boarding points
-        BoardingPoint::factory()->count(6)->create();
+        $boardingPoints = [
+            'Kumaranelloor',
+            'Pathnadu',
+            'Karukachal',
+            'Kurichy',
+            'Kottayam',
+            'Changanassery',
+            'Thiruvalla',
+            'Kozhencherry',
+            'Ranni',
+        ];
+
+        foreach ($boardingPoints as $boardingPoint) {
+            BoardingPoint::create([
+                'place' => $boardingPoint,
+                'distance_from_college' => rand(1, 100),
+            ]);
+        }
     }
 }
