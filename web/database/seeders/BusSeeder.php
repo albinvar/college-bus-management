@@ -15,7 +15,7 @@ class BusSeeder extends Seeder
     {
         $buses = [
 [
-                'name' => 'Bus 1',
+                'name' => 'Chanaganassery Bus',
                 'number_plate' => 'KL 01 1234',
                 'capacity' => 50,
                 'bus_no' => '1',
@@ -23,7 +23,7 @@ class BusSeeder extends Seeder
                 'destination' => 'Kumaranelloor',
             ],
             [
-                'name' => 'Bus 2',
+                'name' => 'Manimala Bus',
                 'number_plate' => 'KL 01 1235',
                 'capacity' => 50,
                 'bus_no' => '2',
@@ -31,7 +31,7 @@ class BusSeeder extends Seeder
                 'destination' => 'Pathnadu',
             ],
             [
-                'name' => 'Bus 3',
+                'name' => 'Karukachal Bus',
                 'number_plate' => 'KL 01 1236',
                 'capacity' => 50,
                 'bus_no' => '3',
@@ -39,12 +39,20 @@ class BusSeeder extends Seeder
                 'destination' => 'Karukachal',
             ],
             [
-                'name' => 'Bus 4',
+                'name' => 'Kozhencherry Bus',
                 'number_plate' => 'KL 01 1237',
                 'capacity' => 50,
                 'bus_no' => '4',
                 'description' => 'This is a bus',
                 'destination' => 'Kurichy',
+            ],
+            [
+                'name' => 'Kottayam Bus',
+                'number_plate' => 'KL 01 1238',
+                'capacity' => 50,
+                'bus_no' => '5',
+                'description' => 'This is a bus',
+                'destination' => 'Kottayam',
             ],
         ];
 
@@ -57,6 +65,12 @@ class BusSeeder extends Seeder
             [
                 'bus_id' => 1,
                 'boarding_point_id' => Bus::where('destination', 'Kumaranelloor')->first()->id,
+                'morning_reach_time' => '08:00',
+                'evening_reach_time' => '16:00',
+            ],
+            [
+                'bus_id' => 1,
+                'boarding_point_id' => Bus::where('destination', 'Kottayam')->first()->id,
                 'morning_reach_time' => '08:00',
                 'evening_reach_time' => '16:00',
             ],
