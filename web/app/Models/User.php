@@ -74,6 +74,11 @@ class User extends Authenticatable
         return $this->hasOne(Student::class);
     }
 
+    public function guardian()
+    {
+        return $this->hasOne(Guardian::class);
+    }
+
     public function busBoardingPoint(): BelongsTo
     {
         return $this->belongsTo(BusBoardingPoint::class);

@@ -117,27 +117,35 @@
                         </div>
                     </div>
 
-                    @foreach (Auth::user()->guardian->guardianStudents as $child)
-                        <!-- Card -->
-                        <a class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition" href="#">
-                            <div class="px-4 py-3 ">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center">
-                                        <img class="size-[38px] rounded-full" src="{{ $child->student->user->profile_photo_url }}" alt="Image Description">
-                                        <div class="ms-3">
-                                            <h3 class="group-hover:text-blue-600 font-semibold text-gray-700">
-                                                {{ $child->student->user->name }}
-                                            </h3>
+                    @if (Auth::user()->guardian == null)
+                        <div class="flex justify-between">
+                            <p class="font-medium text-slate-700 dark:text-navy-100">
+                                No Children
+                            </p>
+                        </div>
+                    @else
+                        @foreach (Auth::user()->guardian->guardianStudents as $child)
+                            <!-- Card -->
+                            <a class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition" href="#">
+                                <div class="px-4 py-3 ">
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <img class="size-[38px] rounded-full" src="{{ $child->student->user->profile_photo_url }}" alt="Image Description">
+                                            <div class="ms-3">
+                                                <h3 class="group-hover:text-blue-600 font-semibold text-gray-700">
+                                                    {{ $child->student->user->name }}
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div class="ps-3">
+                                            <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                                         </div>
                                     </div>
-                                    <div class="ps-3">
-                                        <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                        <!-- End Card -->
-                    @endforeach
+                            </a>
+                            <!-- End Card -->
+                        @endforeach
+                    @endif
                     <hr>
 
                     <div class="space-y-3 text-xs+">
