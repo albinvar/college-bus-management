@@ -44,7 +44,7 @@ Route::middleware([
         // get all student semesters with student info and semester info for the current authenticated user
         $semesters = auth()->user()->student->studentSemesters()->with('semester')->get();
         return view('roles.student.semesters', compact('semesters'));
-    })->name('student.semester');
+    })->name('student.semesters');
 
     Route::get('/access-logs/{bus}', [AccessLogController::class, 'busShow',])->name('admin.manage-bus.access-logs');
 

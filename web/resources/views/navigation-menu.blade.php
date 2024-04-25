@@ -15,9 +15,16 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('admin.manage-bus') }}" :active="request()->routeIs('admin.manage-bus')">
-                        {{ __('Manage College Buses') }}
-                    </x-nav-link>
+                    @if (Auth::user()->hasRole('student'))
+                        <x-nav-link href="{{ route('student.semesters') }}" :active="request()->routeIs('student.semesters')">
+                            {{ __('Semesters') }}
+                        </x-nav-link>
+                    @endif
+                    @if (Auth::user()->hasRole('admin'))
+                        <x-nav-link href="{{ route('admin.manage-bus') }}" :active="request()->routeIs('admin.manage-bus')">
+                            {{ __('Manage College Buses') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
