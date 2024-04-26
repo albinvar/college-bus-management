@@ -68,7 +68,9 @@ class StudentController extends Controller
     public function busStudentsShow(Bus $bus)
     {
         // get all students for the bus
-        $students = $bus->students()->paginate(10);
+        $students = $bus->students()
+            ->with('student')
+            ->paginate(10);
         return view('roles.admin.manage-bus-students', compact('students'));
     }
 }

@@ -120,35 +120,43 @@
                                                 <td class="size-px whitespace-nowrap">
                                                     <div class="px-6 py-3">
                                                     <span class="text-sm text-gray-600">
-                                                        {{ $student->currentSemester }}
-                                                        {{ dump($student) }}
+                                                        {{ $student->student->currentSemester->semester->name}}
+
                                                     </span>
                                                     </div>
                                                 </td>
                                                 <td class="size-px whitespace-nowrap">
                                                     <div class="px-6 py-3">
                                                     <span class="text-sm text-gray-600">
-                                                        {{ $student->name }}
+                                                        {{ $student->student->phone }}
                                                     </span>
                                                     </div>
                                                 </td>
                                                 <td class="size-px whitespace-nowrap">
                                                     <div class="px-6 py-3">
                                                     <span class="text-sm text-gray-600">
-                                                        {{ $student->name }}
+                                                        {{ $student->email }}
                                                     </span>
                                                     </div>
                                                 </td>
                                                 <td class="size-px whitespace-nowrap">
                                                     <div class="px-6 py-3">
                                                     <span class="text-sm text-gray-600">
-                                                        {{ $student->name }}
+                                                        {{ $student->updated_at->diffForHumans() }}
                                                     </span>
                                                     </div>
                                                 </td>
 
                                                 <td class="size-px whitespace-nowrap">
                                                     <div class="px-6 py-1.5">
+                                                        <button class="py-1.5 px-2 inline-flex items-center gap-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 8v4l2 2"/><path d="M12 16h.01"/></svg>
+                                                            Link Card
+                                                        </button>
+                                                        <a href="" class="py-1.5 px-2 inline-flex items-center gap-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M12 12v9"/></svg>
+                                                            Generate Fees
+                                                        </a>
                                                         <div class="hs-dropdown relative inline-block [--placement:bottom-right]">
                                                             <button id="hs-table-dropdown-1" type="button" class="hs-dropdown-toggle py-1.5 px-2 inline-flex justify-center items-center gap-2 rounded-lg text-gray-700 align-middle disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm">
                                                                 <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
@@ -159,10 +167,10 @@
                                                                         Access Logs
                                                                     </a>
                                                                     <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                                                                        Staffs (wip)
+                                                                        Parents (wip)
                                                                     </a>
                                                                     <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                                                                        Students (wip)
+                                                                        Bus (wip)
                                                                     </a>
                                                                     <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
                                                                         Edit (wip)

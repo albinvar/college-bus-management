@@ -252,10 +252,10 @@
 
                     {{-- Start --}}
                     @php
-                        $latestLog = $accessLogs->first();
+                        $latestLog = $accessLogs->first() ?? null;
                     @endphp
 
-                    @if($latestLog->user)
+                    @if($latestLog->user ?? null)
                     <div class="mt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4 border border-gray-200 rounded-xl shadow-sm overflow-hidden text-slate-700">
                         <div
                             class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-1 lg:gap-6 bg-info/10 px-4 pb-5"
