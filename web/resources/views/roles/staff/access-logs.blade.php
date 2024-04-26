@@ -11,9 +11,11 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
                 <!-- Table Section -->
-                <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+                <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 grid grid-cols-12 mx-auto">
+
+
                     <!-- Card -->
-                    <div class="flex flex-col">
+                    <div class="flex flex-col col-span-12 md:col-span-8 px-4">
                         <div class="-m-1.5 overflow-x-auto">
                             <div class="p-1.5 min-w-full inline-block align-middle">
                                 <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
@@ -247,6 +249,103 @@
                         </div>
                     </div>
                     <!-- End Card -->
+
+
+                    {{-- Start --}}
+                    <div class="mt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4 border border-gray-200 rounded-xl shadow-sm overflow-hidden bg-gradient-to-r from-blue-800 to-indigo-900 text-white">
+                        <div
+                            class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-1 lg:gap-6 bg-info/10 px-4 pb-5"
+                        >
+                            <div
+                                class="rounded-lg bg-info/10 px-4 pb-5 sm:px-5"
+                            >
+                                <div class="flex items-center justify-between py-3">
+                                    <h2
+                                        class="font-medium tracking-wide"
+                                    >
+                                        Profile
+                                    </h2>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between">
+                                        <div class="avatar h-16 w-16">
+                                            <img
+                                                class="rounded-full"
+                                                src="{{ Auth::user()->profile_photo_url }}"
+                                                alt="image"
+                                            />
+                                        </div>
+                                        <div>
+                                            <p>Today</p>
+                                            <p
+                                                class="text-xl font-medium"
+                                            >
+                                                11:00
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3
+                                            class="text-lg font-medium"
+                                        >
+                                            {{ Auth::user()->name }}
+
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        Staff
+                                    </span>
+                                        </h3>
+                                        <p class="text-xs text-navy-300">
+                                            {{ Auth::user()->email }}
+                                        </p>
+                                    </div>
+                                    <div class="space-y-3 text-xs+">
+                                        <div class="flex justify-between">
+                                            <p class="font-medium">
+                                                Current Semester
+                                            </p>
+                                            <p class="text-right">
+                                                @if(isset(Auth::user()->staff->currentSemester->semester->name))
+                                                    {{ Auth::user()->staff->currentSemester->semester->name }}
+                                                @else
+                                                    Not Assigned
+                                                @endif
+                                            </p>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <p class="font-medium">
+                                                Last Login
+                                            </p>
+                                            <p class="text-right">{{ now()->format('d-m-Y') }}</p>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <p class="font-medium">
+                                                Bus Pass Status
+                                            </p>
+                                            <p class="text-right">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                    Active
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <p class="font-medium">
+                                                No: of Students
+                                            </p>
+                                            <p class="text-right">21</p>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <p class="font-medium">
+                                                No: of Staffs
+                                            </p>
+                                            <p class="text-right">2</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- End --}}
+
                 </div>
                 <!-- End Table Section -->
             </div>
