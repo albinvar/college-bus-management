@@ -20,6 +20,11 @@
                             {{ __('Semesters') }}
                         </x-nav-link>
                     @endif
+                    @if (Auth::user()->hasRole('staff'))
+                        <x-nav-link href="{{ route('staff.manage-bus.access-logs', ['bus' => auth()->user()->staff->bus]) }}" :active="request()->routeIs('staff.manage-bus.access-logs')">
+                            {{ __('CBMS Machine Logs') }}
+                        </x-nav-link>
+                    @endif
                     @if (Auth::user()->hasRole('admin'))
                         <x-nav-link href="{{ route('admin.manage-bus') }}" :active="request()->routeIs('admin.manage-bus')">
                             {{ __('Manage College Buses') }}

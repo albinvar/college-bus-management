@@ -49,6 +49,9 @@ Route::middleware([
 
     Route::get('/access-logs/{bus}', [AccessLogController::class, 'busShow',])->name('admin.manage-bus.access-logs');
 
-    Route::get('/{bus}/students', [StudentController::class, 'busStudentsShow',])->name('admin.manage-bus.students');
+    Route::get('/buses/{bus}/students', [StudentController::class, 'busStudentsShow',])->name('admin.manage-bus.students');
+
+    // Staff assigned bus access logs
+    Route::get('/buses/{bus}/staff-monitor', [AccessLogController::class, 'staffShow',])->name('staff.manage-bus.access-logs');
 
 });

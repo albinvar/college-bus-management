@@ -50,6 +50,19 @@ class AccessLogController extends Controller
         return view('roles.admin.access-logs', compact('accessLogs', 'bus'));
     }
 
+    public function staffShow(AccessLog $accessLog, Bus $bus)
+    {
+        // check if the authenticated user is authorized to view the bus
+        if (!auth()->user()->hasRole('staff')) {
+            abort(403);
+        }
+
+        // Access Logs for a specific bus
+        $accessLogs = $bus->accessLogs()->latest()->paginate(10);
+
+        return view('roles.staff.access-logs', compact('accessLogs', 'bus'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
