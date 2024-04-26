@@ -5,7 +5,6 @@
             {{ __('Manage Access Logs') }}
         </h2>
     </x-slot>
-
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -252,7 +251,12 @@
 
 
                     {{-- Start --}}
-                    <div class="mt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4 border border-gray-200 rounded-xl shadow-sm overflow-hidden bg-gradient-to-r from-blue-800 to-indigo-900 text-white">
+                    @php
+                        $latestLog = $accessLogs->first();
+                    @endphp
+
+                    @if($latestLog->user)
+                    <div class="mt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4 border border-gray-200 rounded-xl shadow-sm overflow-hidden text-slate-700">
                         <div
                             class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-1 lg:gap-6 bg-info/10 px-4 pb-5"
                         >
@@ -261,9 +265,9 @@
                             >
                                 <div class="flex items-center justify-between py-3">
                                     <h2
-                                        class="font-medium tracking-wide"
+                                        class="font-medium tracking-wide mb-3"
                                     >
-                                        Profile
+                                        Last Check In / Check Out :
                                     </h2>
                                 </div>
                                 <div class="space-y-4">
@@ -271,16 +275,16 @@
                                         <div class="avatar h-16 w-16">
                                             <img
                                                 class="rounded-full"
-                                                src="{{ Auth::user()->profile_photo_url }}"
+                                                src="{{ $latestLog->user->profile_photo_url }}"
                                                 alt="image"
                                             />
                                         </div>
                                         <div>
-                                            <p>Today</p>
+                                            <p>Time</p>
                                             <p
                                                 class="text-xl font-medium"
                                             >
-                                                11:00
+                                                {{ $latestLog->created_at->format('h:i A') }}
                                             </p>
                                         </div>
                                     </div>
@@ -288,14 +292,14 @@
                                         <h3
                                             class="text-lg font-medium"
                                         >
-                                            {{ Auth::user()->name }}
+                                            {{ $latestLog->user->name }}
 
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                         Staff
                                     </span>
                                         </h3>
                                         <p class="text-xs text-navy-300">
-                                            {{ Auth::user()->email }}
+                                            {{ $latestLog->user->email }}
                                         </p>
                                     </div>
                                     <div class="space-y-3 text-xs+">
@@ -304,10 +308,10 @@
                                                 Current Semester
                                             </p>
                                             <p class="text-right">
-                                                @if(isset(Auth::user()->staff->currentSemester->semester->name))
-                                                    {{ Auth::user()->staff->currentSemester->semester->name }}
+                                               @if(isset($latestLog->user->student->currentSemester->semester->name))
+                                                    {{ $latestLog->user->student->currentSemester->semester->name }}
                                                 @else
-                                                    Not Assigned
+                                                    N/A
                                                 @endif
                                             </p>
                                         </div>
@@ -315,7 +319,9 @@
                                             <p class="font-medium">
                                                 Last Login
                                             </p>
-                                            <p class="text-right">{{ now()->format('d-m-Y') }}</p>
+                                            <p class="text-right">
+                                                {{ $latestLog->created_at->diffForHumans() }}
+                                            </p>
                                         </div>
                                         <div class="flex justify-between">
                                             <p class="font-medium">
@@ -327,23 +333,53 @@
                                                 </span>
                                             </p>
                                         </div>
-                                        <div class="flex justify-between">
-                                            <p class="font-medium">
-                                                No: of Students
-                                            </p>
-                                            <p class="text-right">21</p>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <p class="font-medium">
-                                                No: of Staffs
-                                            </p>
-                                            <p class="text-right">2</p>
-                                        </div>
+{{--                                        <div class="flex justify-between">--}}
+{{--                                            <p class="font-medium">--}}
+{{--                                                No: of Students--}}
+{{--                                            </p>--}}
+{{--                                            <p class="text-right">21</p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="flex justify-between">--}}
+{{--                                            <p class="font-medium">--}}
+{{--                                                No: of Staffs--}}
+{{--                                            </p>--}}
+{{--                                            <p class="text-right">2</p>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @else
+                        <div class="mt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4 border border-gray-200 rounded-xl shadow-sm overflow-hidden text-slate-700">
+                            <div
+                                class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-1 lg:gap-6 bg-info/10 px-4 pb-5"
+                            >
+                                <div
+                                    class="rounded-lg bg-info/10 px-4 pb-5 sm:px-5"
+                                >
+                                    <div class="flex items center justify-between py-3">
+                                        <h2
+                                            class="font-medium tracking-wide mb-3"
+                                        >
+                                            Scanning Details...
+                                        </h2>
+                                    </div>
+                                    <div class="text-center mt-16 ">
+                                        <p class="text-sm text-gray-600">
+                                        <div class="sk-folding-cube">
+                                            <div class="sk-cube1 sk-cube"></div>
+                                            <div class="sk-cube2 sk-cube"></div>
+                                            <div class="sk-cube4 sk-cube"></div>
+                                            <div class="sk-cube3 sk-cube"></div>
+                                        </div>
+                                            No recent check in or check out found.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     {{-- End --}}
 
                 </div>
@@ -351,4 +387,104 @@
             </div>
         </div>
     </div>
+    <style>
+        .sk-folding-cube {
+            margin: 40px auto;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            -webkit-transform: rotateZ(45deg);
+            transform: rotateZ(45deg);
+        }
+
+        .sk-folding-cube .sk-cube {
+            float: left;
+            width: 50%;
+            height: 50%;
+            position: relative;
+            -webkit-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+        }
+
+        .sk-folding-cube .sk-cube:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1189ca;
+            -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+            animation: sk-foldCubeAngle 2.4s infinite linear both;
+            -webkit-transform-origin: 100% 100%;
+            -ms-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+        }
+
+        .sk-folding-cube .sk-cube2 {
+            -webkit-transform: scale(1.1) rotateZ(90deg);
+            transform: scale(1.1) rotateZ(90deg);
+        }
+
+        .sk-folding-cube .sk-cube3 {
+            -webkit-transform: scale(1.1) rotateZ(180deg);
+            transform: scale(1.1) rotateZ(180deg);
+        }
+
+        .sk-folding-cube .sk-cube4 {
+            -webkit-transform: scale(1.1) rotateZ(270deg);
+            transform: scale(1.1) rotateZ(270deg);
+        }
+
+        .sk-folding-cube .sk-cube2:before {
+            -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+        }
+
+        .sk-folding-cube .sk-cube3:before {
+            -webkit-animation-delay: 0.6s;
+            animation-delay: 0.6s;
+        }
+
+        .sk-folding-cube .sk-cube4:before {
+            -webkit-animation-delay: 0.9s;
+            animation-delay: 0.9s;
+        }
+
+        @-webkit-keyframes sk-foldCubeAngle {
+            0%, 10% {
+                -webkit-transform: perspective(140px) rotateX(-180deg);
+                transform: perspective(140px) rotateX(-180deg);
+                opacity: 0;
+            }
+            25%, 75% {
+                -webkit-transform: perspective(140px) rotateX(0deg);
+                transform: perspective(140px) rotateX(0deg);
+                opacity: 1;
+            }
+            90%, 100% {
+                -webkit-transform: perspective(140px) rotateY(180deg);
+                transform: perspective(140px) rotateY(180deg);
+                opacity: 0;
+            }
+        }
+        @keyframes sk-foldCubeAngle {
+            0%, 10% {
+                -webkit-transform: perspective(140px) rotateX(-180deg);
+                transform: perspective(140px) rotateX(-180deg);
+                opacity: 0;
+            }
+            25%, 75% {
+                -webkit-transform: perspective(140px) rotateX(0deg);
+                transform: perspective(140px) rotateX(0deg);
+                opacity: 1;
+            }
+            90%, 100% {
+                -webkit-transform: perspective(140px) rotateY(180deg);
+                transform: perspective(140px) rotateY(180deg);
+                opacity: 0;
+            }
+        }
+    </style>
 </x-app-layout>

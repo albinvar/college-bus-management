@@ -60,6 +60,9 @@ class AccessLogController extends Controller
         // Access Logs for a specific bus
         $accessLogs = $bus->accessLogs()->latest()->paginate(10);
 
+        // get the last accessed user details
+        $accessLogs->load('user');
+
         return view('roles.staff.access-logs', compact('accessLogs', 'bus'));
     }
 
