@@ -161,7 +161,7 @@ class FeeController extends Controller
         $data = [
             "key"               => $keyId,
             "amount"            => $orderData['amount'],
-            "name"              => "Campus X",
+            "name"              => "CBMS Hub",
             "description"       => "Unified platform for campus payments...",
             "image"             => "https://raw.githubusercontent.com/albinvar/code-mentor-hub/c56d5ff1478adcfee0c55b4808704b8d567987bd/public/images/logo.png?token=GHSAT0AAAAAAB7UHVCIRYDUSE6FTH4PTTSEZCHKU6Q",
             "prefill"           => [
