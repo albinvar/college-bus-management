@@ -71,6 +71,6 @@ class StudentController extends Controller
         $students = $bus->students()
             ->with('student')
             ->paginate(10);
-        return view('roles.admin.manage-bus-students', compact('students'));
+        return view('roles.admin.manage-bus-students', compact('students', 'bus'));
     }
 }

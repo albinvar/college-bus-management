@@ -14,7 +14,73 @@
                 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
                     <!-- Card -->
                     <div class="flex flex-col">
-                        <div class="-m-1.5 overflow-x-auto">
+
+
+                        <div class="my-1.5 min-w-full inline-block align-middle mb-6 ">
+                            <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                                <!-- Header -->
+                                <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                                    <div>
+                                        <h2 class="text-xl font-semibold text-gray-800 grow">
+                                            Bus Details
+                                        </h2>
+                                        <p class="mt-3 text-sm text-gray-600">
+                                            {{ $bus->description }}
+                                        </p>
+                                        <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
+                                            <li class="flex items-center space-x-2">
+                                                <svg class="flex-shrink-0 size-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                <span>Bus Name : <strong>{{ $bus->name }}</strong></span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <svg class="flex-shrink-0 size-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                <span>Bus No : <strong>{{ $bus->bus_no }}</strong></span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <svg class="flex-shrink-0 size-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                <span>Number Plate : <strong>{{ $bus->number_plate }}</strong></span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <svg class="flex-shrink-0 size-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                <span>Bus Capacity : <strong>{{ $bus->capacity }}</strong></span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <svg class="flex-shrink-0 size-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                <span>Bus Route :
+                                                    <strong>
+                                                        @foreach($bus->boardingPoints as $route)
+                                                            {{ $route->place }} @if(!$loop->last) -> @endif
+                                                        @endforeach
+                                                    </strong>
+                                                </span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <svg class="flex-shrink-0 size-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                <span>Students Boarding : <strong>{{ $bus->students->count() }}</strong></span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <svg class="flex-shrink-0 size-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                <span>Destination : <strong>{{ $bus->destination }}</strong></span>
+                                            </li>
+                                            <li class="flex items-center justify-center space-x-2">
+                                                <svg class="flex-shrink-0 size-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                <span>Bus Drivers :</span>
+                                                    <strong>
+                                                        @foreach($bus->driver as $driver)
+                                                            <div class="inline-flex items-center">
+                                                                <img src="{{ $driver->user->profile_photo_url }}" alt="{{ $driver->user->name }}" class="w-8 h-8 rounded-full mr-2 ">
+                                                                {{ $driver->user->name }} ({{ $driver->user->phone }})
+                                                            </div>
+                                                        @endforeach
+                                                    </strong>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                    <div class="-m-1.5 overflow-x-auto">
                             <div class="p-1.5 min-w-full inline-block align-middle">
                                 <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                                     <!-- Header -->
