@@ -52,7 +52,7 @@
                                                     Fees Not Generated
                                                 </span>
                                             @else
-                                                @if($semester->fees->due_amount > 0)
+                                                @if($semester->fees->remaining_amount > 0)
                                                     <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
                                                         Due
                                                     </span>
@@ -65,7 +65,7 @@
 
                                         </td>
                                         @if($semester->fees)
-                                            @if($semester->fees->due_amount > 0)
+                                            @if($semester->fees->remaining_amount > 0)
                                                 <td class="border px-4 py-2">
                                                     <a href="{{ route('pay', ['fee' => $semester->fees->id]) }}" class="text-blue-500">
                                                         Pay Fee

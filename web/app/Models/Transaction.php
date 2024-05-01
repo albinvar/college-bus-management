@@ -33,14 +33,4 @@ class Transaction extends Model
     {
         $this->attributes['transaction_type'] = strtolower($value);
     }
-
-    public function getAmountAttribute($value): string
-    {
-        return number_format($value, 2);
-    }
-
-    public function setAmountAttribute($value): void
-    {
-        $this->attributes['amount'] = str_replace(',', '', $value);
-    }
 }

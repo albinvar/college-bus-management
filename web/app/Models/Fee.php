@@ -42,6 +42,20 @@ class Fee extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    public function getTransactionsCountAttribute(): int
+    {
+        // count all transactions
+        return $this->transactions->count();
+    }
+
+    // get remaining amount to be paid
+    public function getRemainingAmountAttribute(): string
+    {
+        // sum all transactions amount of successful transactions
+        $paidAmount = $this->transactions->where('status', 'success')->sum('amount');
+        return number_format($this->due_amount - $paidAmount, 2);
+    }
+
     public function getTransactionsTotalAttribute(): string
     {
         // sum all transactions amount of successful transactions

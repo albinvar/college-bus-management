@@ -67,7 +67,7 @@ class SemesterController extends Controller
     // show all semesters for a student
     public function showSemesters()
     {
-        $semesters = auth()->user()->student->studentSemesters()->with(['semester', 'fees'])->get();
+        $semesters = auth()->user()->student->studentSemesters()->with(['semester', 'fees.transactions'])->get();
         return view('roles.student.semesters', compact('semesters'));
     }
 }

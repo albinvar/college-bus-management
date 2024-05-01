@@ -71,7 +71,4 @@ class StudentSemester extends Model
         return $query->where('status', 'graduated');
     }
 
-
-
-
 }
