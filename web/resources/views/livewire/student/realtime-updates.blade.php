@@ -1,57 +1,149 @@
 {{-- Start --}}
-    <div class="col-span-12 lg:col-span-4 xl:col-span-4">
-        <!-- component -->
-        <div class="p-4 mx-4 w-full mx-auto pt-20 flow-root">
-            <ul role="list" class="-mb-8">
-                @forelse($updates as $notification)
-                    <li>
-                        <div class="relative pb-8">
-                            <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex space-x-3">
-                                <div>
-                                <span class="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white">
-                                    <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 ear
-                                        0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 00-13.074.003z" />
-                                    </svg>
-                                </span>
-                                </div>
-                                <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                                    <div>
-                                        <p class="text-sm text-gray-500">packing at <a href="#" class="font-medium text-gray-900">France</a></p>
-                                    </div>
-                                    <div class="whitespace-nowrap text-right text-sm text-gray-500">
-                                        <time datetime="2020-09-20">Sep 20</time>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                @empty
-                    <li>
-                        <div class="relative pb-8">
-                            <div class="relative flex space-x-3">
-                                <div>
-                                <span class="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white">
-                                    <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M10 3a1 1 0 00-1 1v5.586l-2.293-2.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L11 9.586V4a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                        <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-                                    </svg>
-                                </span>
-                                </div>
-                                <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                                    <div>
-                                        <p class="text-sm text-gray-500">No Notifications</p>
-                                    </div>
-                                    <div class="whitespace nowrap text-right text-sm text-gray-500">
-                                        <time datetime="{{ now() }}"> {{ now()->diffForHumans() }} </time>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                @endforelse
-            </ul>
+<div class="col-span-12 lg:col-span-4 xl:col-span-4">
+ <div class="flex items-center justify-between pt-4 px-4">
+        <h2 class="font-semibold text-gray-800">Realtime Updates</h2>
+        <button type="button" class="text-sm text-gray-500 hover:text-gray-600">View all</button>
+    </div>
+
+ <!-- component -->
+        <div class="p-4 mx-4 w-full mx-auto flow-root">
+            <!-- Timeline -->
+<div>
+  <!-- Item -->
+  <div class="flex gap-x-3">
+    <!-- Left Content -->
+    <div class="w-16 text-end">
+      <span class="text-xs text-gray-500">12:05PM</span>
+    </div>
+    <!-- End Left Content -->
+
+    <!-- Icon -->
+    <div class="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200">
+      <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="size-2 rounded-full bg-gray-400"></div>
+      </div>
+    </div>
+    <!-- End Icon -->
+
+    <!-- Right Content -->
+    <div class="grow pt-0.5 pb-8">
+      <h3 class="flex gap-x-1.5 font-semibold text-gray-800">
+        <svg class="flex-shrink-0 size-4 mt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" x2="8" y1="13" y2="13"></line>
+          <line x1="16" x2="8" y1="17" y2="17"></line>
+          <line x1="10" x2="8" y1="9" y2="9"></line>
+        </svg>
+        Created "Preline in React" task
+      </h3>
+      <p class="mt-1 text-sm text-gray-600">
+        Find more detailed insctructions here.
+      </p>
+      <button type="button" class="mt-1 -ms-1 p-1 inline-flex items-center gap-x-2 text-xs rounded-lg border border-transparent text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
+        <img class="flex-shrink-0 size-4 rounded-full" src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8auto=format&fit=facearea&facepad=3&w=320&h=320&q=80" alt="Image Description">
+        James Collins
+      </button>
+    </div>
+    <!-- End Right Content -->
+  </div>
+  <!-- End Item -->
+
+  <!-- Item -->
+  <div class="flex gap-x-3">
+    <!-- Left Content -->
+    <div class="w-16 text-end">
+      <span class="text-xs text-gray-500">12:05PM</span>
+    </div>
+    <!-- End Left Content -->
+
+    <!-- Icon -->
+    <div class="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200">
+      <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="size-2 rounded-full bg-gray-400"></div>
+      </div>
+    </div>
+    <!-- End Icon -->
+
+    <!-- Right Content -->
+    <div class="grow pt-0.5 pb-8">
+      <h3 class="flex gap-x-1.5 font-semibold text-gray-800">
+        Release v5.2.0 quick bug fix 🐞
+      </h3>
+      <button type="button" class="mt-1 -ms-1 p-1 inline-flex items-center gap-x-2 text-xs rounded-lg border border-transparent text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
+        <span class="flex flex-shrink-0 justify-center items-center size-4 bg-white border border-gray-200 text-[10px] font-semibold uppercase text-gray-600 rounded-full">
+          A
+        </span>
+        Alex Gregarov
+      </button>
+    </div>
+    <!-- End Right Content -->
+  </div>
+  <!-- End Item -->
+
+  <!-- Item -->
+  <div class="flex gap-x-3">
+    <!-- Left Content -->
+    <div class="w-16 text-end">
+      <span class="text-xs text-gray-500">12:05PM</span>
+    </div>
+    <!-- End Left Content -->
+
+    <!-- Icon -->
+    <div class="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200">
+      <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="size-2 rounded-full bg-gray-400"></div>
+      </div>
+    </div>
+    <!-- End Icon -->
+
+    <!-- Right Content -->
+    <div class="grow pt-0.5 pb-8">
+      <h3 class="flex gap-x-1.5 font-semibold text-gray-800">
+        Marked "Install Charts" completed
+      </h3>
+      <p class="mt-1 text-sm text-gray-600">
+        Finally! You can check it out here.
+      </p>
+      <button type="button" class="mt-1 -ms-1 p-1 inline-flex items-center gap-x-2 text-xs rounded-lg border border-transparent text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
+        <img class="flex-shrink-0 size-4 rounded-full" src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80" alt="Image Description">
+        James Collins
+      </button>
+    </div>
+    <!-- End Right Content -->
+  </div>
+  <!-- End Item -->
+
+  <!-- Item -->
+  <div class="flex gap-x-3">
+    <!-- Left Content -->
+    <div class="w-16 text-end">
+      <span class="text-xs text-gray-500">12:05PM</span>
+    </div>
+    <!-- End Left Content -->
+
+    <!-- Icon -->
+    <div class="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200">
+      <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="size-2 rounded-full bg-gray-400"></div>
+      </div>
+    </div>
+    <!-- End Icon -->
+
+    <!-- Right Content -->
+    <div class="grow pt-0.5 pb-8">
+      <h3 class="flex gap-x-1.5 font-semibold text-gray-800">
+        Take a break ⛳️
+      </h3>
+      <p class="mt-1 text-sm text-gray-600">
+        Just chill for now... 😉
+      </p>
+    </div>
+    <!-- End Right Content -->
+  </div>
+  <!-- End Item -->
+</div>
+<!-- End Timeline -->
         </div>
     </div>
 {{-- End --}}

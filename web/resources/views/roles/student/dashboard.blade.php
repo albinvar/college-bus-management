@@ -131,7 +131,7 @@
 
     {{-- Parents Column --}}
     {{-- Start --}}
-    <div class="pt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4">
+    <div class="mt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4 border border-gray-200 p-4">
         <div class="px-6 text-xl text-left font-semibold text-gray-600 mb-8">
             Parents
         </div>
