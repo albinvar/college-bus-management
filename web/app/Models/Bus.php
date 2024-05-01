@@ -47,4 +47,16 @@ class Bus extends Model
     {
         return $this->hasMany(AccessLog::class);
     }
+
+    // get the total number of students in the bus
+    public function getStudentCountAttribute()
+    {
+        return $this->students()->count();
+    }
+
+    // get seat availability
+    public function getSeatsAvailabileAttribute()
+    {
+        return $this->capacity - $this->students()->count();
+    }
 }

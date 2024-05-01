@@ -161,7 +161,7 @@ class BusController extends Controller
             $bus->guardian_count = $bus->busBoardingPoints->sum('guardian_count');
             $bus->driver_count = $bus->busBoardingPoints->sum('driver_count');
             $bus->total_people = $bus->busBoardingPoints->sum('total_people');
-            $bus->seats_available = $bus->busBoardingPoints->sum('seats_available');
+            $bus->seats_available = $bus->seats_availabile;
             return $bus;
         });
 
