@@ -41,6 +41,8 @@ Route::middleware([
 ])->group(function () {
     Route::get('/buses', [BusController::class, 'index',])->name('admin.manage-bus');
 
+    Route::get('/assigner-mode', [BusController::class, 'assignerMode',])->name('admin.assigner-mode');
+
     Route::get('/semesters', function () {
         // get all student semesters with student info and semester info for the current authenticated user
         $semesters = auth()->user()->student->studentSemesters()->with('semester')->get();

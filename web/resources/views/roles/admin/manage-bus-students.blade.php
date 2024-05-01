@@ -186,8 +186,11 @@
                                                 <td class="size-px whitespace-nowrap">
                                                     <div class="px-6 py-3">
                                                     <span class="text-sm text-gray-600">
-                                                        {{ $student->student->currentSemester->semester->name}}
-
+                                                        @if ($student->student->currentSemester)
+                                                            {{ $student->student->currentSemester->semester->name}}
+                                                        @else
+                                                            Not Assigned
+                                                        @endif
                                                     </span>
                                                     </div>
                                                 </td>
@@ -254,7 +257,7 @@
                                             </tr>
 
 
-                                            @livewire('admin.assigner-modal', ['student' => $student], key($student->id))
+                                            @livewire('admin.assigner-modal', ['student' => $student, 'busId' => $bus->id], key($student->id))
 
                                         @empty
                                             <tr>
