@@ -126,7 +126,7 @@
                     @else
                         @foreach (Auth::user()->guardian->guardianStudents as $child)
                             <!-- Card -->
-                            <a class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition" href="#">
+                            <a class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition" href="{{ route('parent.monitor-child', $child->student->id) }}">
                                 <div class="px-4 py-3 ">
                                     <div class="flex justify-between items-center">
                                         <div class="flex items-center">

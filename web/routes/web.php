@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccessLogController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\FeeController;
+use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SemesterController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/buses', [BusController::class, 'index',])->name('admin.manage-bus');
+
+    Route::get('/parent/monitor/{student}', [GuardianController::class, 'show',])->name('parent.monitor-child');
 
     Route::get('/assigner-mode', [BusController::class, 'assignerMode',])->name('admin.assigner-mode');
 

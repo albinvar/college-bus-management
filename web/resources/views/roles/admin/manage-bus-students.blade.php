@@ -199,6 +199,14 @@
                                             <th scope="col" class="px-6 py-3 text-start">
                                                 <div class="flex items-center gap-x-2">
                     <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                        Fees Status
+                    </span>
+                                                </div>
+                                            </th>
+
+                                            <th scope="col" class="px-6 py-3 text-start">
+                                                <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
                       Last Activity
                     </span>
                                                 </div>
@@ -249,6 +257,22 @@
                                                     <div class="px-6 py-3">
                                                     <span class="text-sm text-gray-600">
                                                         {{ $student->email }}
+                                                    </span>
+                                                    </div>
+                                                </td>
+                                                <td class="size-px whitespace-nowrap">
+                                                    <div class="px-6 py-3">
+                                                    <span class="text-sm text-gray-600">
+                                                        Rs {{ $student->student->currentSemester->fees->remaining_amount ?? 0 }}
+                                                        @if($student->student->currentSemester->fees->remaining_amount == 0)
+                                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                                Paid
+                                                            </span>
+                                                        @else
+                                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                                Due
+                                                            </span>
+                                                        @endif
                                                     </span>
                                                     </div>
                                                 </td>

@@ -32,6 +32,43 @@
                     View Schedule
                 </button>
 
+
+                <div class="mt-6">
+                    <div class="flex justify-between">
+                        <div class="items-center">
+
+                            <div class="flex">
+                                <svg
+                                    class="h-6 w-6 text-white"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                    ></path>
+                                </svg>
+                                <p class="text-white ml-2">Bus Routes</p>
+                            </div>
+                            <div class="flex flex-wrap mt-3">
+                                @forelse(auth()->user()->busBoardingPoint->bus->boardingPoints as $busBoardingPoint)
+                                    <p class="text-white ml-2">{{ $busBoardingPoint->place}}</p>
+                                    @if (!$loop->last)
+                                        <p class="text-white ml-2">-></p>
+                                    @endif
+                                @empty
+                                    <p class="text-white ml-2">Not Assigned</p>
+                                @endforelse
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -66,7 +103,7 @@
                             <p
                                 class="text-xl font-medium text-slate-700 dark:text-navy-100"
                             >
-                                11:00
+                                {{ now()->format('H:i A') }}
                             </p>
                         </div>
                     </div>

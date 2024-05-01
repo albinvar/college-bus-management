@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Guardian;
 use App\Http\Requests\StoreGuardianRequest;
 use App\Http\Requests\UpdateGuardianRequest;
+use App\Models\Student;
 
 class GuardianController extends Controller
 {
@@ -35,9 +36,22 @@ class GuardianController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Guardian $guardian)
+    public function show(Student $student)
     {
-        //
+        // check if authenticated user is a guardian
+        $user = auth()->user();
+
+        if ($user->hasRole('parent')) {
+            $guardian = $user->guardian;
+            $students = $guardian->students;
+            $student = $students->find($student->id);
+            if ($student) {
+                $accessLogs = $student->user->accessLogs()->latest()->paginate(10);
+                return view('roles.parent.access-logs', compact('student', 'accessLogs'));
+            }
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
     }
 
     /**
