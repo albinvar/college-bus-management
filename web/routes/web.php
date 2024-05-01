@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccessLogController;
 use App\Http\Controllers\BusController;
+use App\Http\Controllers\FeeController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,4 +57,7 @@ Route::middleware([
     // Staff assigned bus access logs
     Route::get('/buses/{bus}/staff-monitor', [AccessLogController::class, 'staffShow',])->name('staff.manage-bus.access-logs');
 
+
+    // Generate fees for the student semester
+    Route::get('/fees/{studentSemester}', [FeeController::class, 'generateFees',])->name('admin.generate-fees');
 });
