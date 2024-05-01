@@ -17,19 +17,14 @@ class Fee extends Model
         'due_date',
     ];
 
+    protected $casts = [
+        'due_date' => 'date',
+        'due_amount' => 'float',
+    ];
+
     public function studentSemester(): BelongsTo
     {
         return $this->belongsTo(StudentSemester::class);
-    }
-
-    public function getDueAmountAttribute($value): string
-    {
-        return number_format($value, 2);
-    }
-
-    public function setDueAmountAttribute($value): void
-    {
-        $this->attributes['due_amount'] = str_replace(',', '', $value);
     }
 
     public function getDueDateAttribute($value): string

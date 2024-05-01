@@ -57,4 +57,9 @@ Route::middleware([
 
     // Generate fees for the student semester
     Route::post('/fees/{studentSemester}', [FeeController::class, 'generateFees',])->name('admin.generate-fees');
+
+    // Payment gateway Routes
+    Route::get('/pay/{fee}', [FeeController::class, 'showPaymentForm',])->name('pay');
+    Route::post('/payment/gateway', [FeeController::class, 'handleGatewayResponse'])->name('payment.gateway.response');
+
 });

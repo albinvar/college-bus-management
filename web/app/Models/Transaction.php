@@ -11,10 +11,12 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_semester_id',
+        'fee_id',
         'amount',
         'transaction_date',
-        'transaction_type',
+        'transaction_id',
+        'payment_method',
+        'status',
     ];
 
     public function studentSemester(): BelongsTo
