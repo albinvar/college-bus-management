@@ -18,18 +18,7 @@ class StaffController extends Controller
             abort(403);
         }
 
-        // students on the bus
-        $bus = auth()->user()->staff->bus ?? null;
-
-        if(!$bus) {
-            return redirect()->route('dashboard');
-        }
-
-        // get the students on the bus
-        $students = $bus->students()->paginate(10);
-
-
-        return view('roles.staff.students', compact('students'));
+        return view('roles.staff.students');
     }
 
     /**
