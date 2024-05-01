@@ -41,11 +41,7 @@ class ManualCheckin extends Component
             ->first();
 
         if ($duplicate) {
-            $accessLog->status = 'failed';
-            $accessLog->message = 'Student already checked in';
-            $accessLog->action = 'Manual Checkin';
-            $accessLog->type = 'in';
-            $accessLog->save();
+
             return redirect()->back()->with('error', 'Student already checked in');
         }
 

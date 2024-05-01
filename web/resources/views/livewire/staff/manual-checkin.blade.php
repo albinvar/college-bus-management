@@ -22,18 +22,6 @@
                                         </p>
                                     </div>
 
-                                    <div>
-                                        <div class="inline-flex gap-x-2">
-                                            <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" href="#">
-                                                View all
-                                            </a>
-
-                                            <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="#">
-                                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                                                Create
-                                            </a>
-                                        </div>
-                                    </div>
                                 </div>
                                 <!-- End Header -->
 
@@ -147,45 +135,21 @@
                                                 <div class="px-6 py-3 item-center">
                                                     <button
                                                         wire:click="checkIn({{ $student->id }}, {{ $student->busBoardingPoint->bus->id }})"
+                                                        wire:loading.attr="disabled" wire:target="checkIn"
+                                                        wire:loading.class="opacity-50 pointer-events-none"
+                                                        wire:loading.class.remove="opacity-50 pointer-events-none"
                                                         class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-non">
                                                             Check In
                                                     </button>
                                                 </div>
                                             </td>
 
-                                            <td class="hidden size-px whitespace-nowrap">
-                                                <div class="px-6 py-1.5">
-                                                    <div class="hs-dropdown relative inline-block [--placement:bottom-right]">
-                                                        <button id="hs-table-dropdown-1" type="button" class="hs-dropdown-toggle py-1.5 px-2 inline-flex justify-center items-center gap-2 rounded-lg text-gray-700 align-middle disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm">
-                                                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-                                                        </button>
-                                                        <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-40 z-10 bg-white shadow-2xl rounded-lg p-2 mt-2" aria-labelledby="hs-table-dropdown-1">
-                                                            <div class="py-2 first:pt-0 last:pb-0">
-                                                                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                                                                    Staffs
-                                                                </a>
-                                                                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                                                                    Students
-                                                                </a>
-                                                                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                                                                    Edit
-                                                                </a>
-                                                            </div>
-                                                            <div class="py-2 first:pt-0 last:pb-0">
-                                                                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-red-600 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                                                                    Delete
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap" colspan="7">
                                                 <div class="text-sm text-center text-gray-500">
-                                                    No Access Logs found for the bus.
+                                                    No students found.
                                                 </div>
                                             </td>
                                         </tr>
