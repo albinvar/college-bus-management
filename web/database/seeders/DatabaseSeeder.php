@@ -140,6 +140,7 @@ class DatabaseSeeder extends Seeder
         $staff = \App\Models\Staff::factory()->create([
             'department' => 'CSE',
             'designation' => 'Teacher',
+            'bus_id' => 1,
             'user_id' => \App\Models\User::factory()->create([
                 'name' => 'Jane Doe',
                 'email' => 'staff1@gmail.com',
@@ -156,7 +157,7 @@ class DatabaseSeeder extends Seeder
         $guardian = \App\Models\Guardian::factory()->create([
             'occupation' => 'Business',
             'user_id' => \App\Models\User::factory()->create([
-                'name' => 'Guardian Doe',
+                'name' => 'John Doe',
                 'email' => 'guardian1@gmail.com',
                 'password' => bcrypt('password'),
             ])->id,

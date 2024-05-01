@@ -107,8 +107,8 @@
                                                     <span class="text-sm text-gray-600">
                                                         <span class="font-semibold text-gray-800">
                                                             @if($student->student->currentSemester)
-                                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $student->student->currentSemester->fees->remaining_amount == 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                                                    {{ $student->student->currentSemester->fees->remaining_amount == 0 ? 'Paid' : 'Unpaid' }}
+                                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $student->student->currentSemester->fees->remaining_amount ?? 'Non' == 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                                    {{ $student->student->currentSemester->fees->remaining_amount ?? 'Non' == 0 ? 'Paid' : 'Unpaid' }}
                                                                 </span>
                                                             @else
                                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
