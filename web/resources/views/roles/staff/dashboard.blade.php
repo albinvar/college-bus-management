@@ -23,26 +23,12 @@
                 <p>System : <span class="font-semibold">UP</span></p>
 
                 <div class="grid grid-cols-2 gap-4 mt-4">
-                    <button
-                        class="btn px-3 py-2 rounded-lg mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                    <a
+                        href="{{ route('staff.manual-checkin', ['bus' => auth()->user()->busBoardingPoint->bus->id]) }}"
+                        class="text-center btn px-3 py-2 rounded-lg mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
                     >
-                        Live Location (GPS)
-                    </button>
-                    <button
-                        class="btn px-3 py-2 rounded-lg mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
-                    >
-                        Access Logs
-                    </button>
-                    <button
-                        class="btn px-3 py-2 rounded-lg border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
-                    >
-                        Bus Boarding Points
-                    </button>
-                    <button
-                        class="btn px-3 py-2 rounded-lg border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
-                    >
-                        Contact Driver
-                    </button>
+                        List Students
+                    </a>
                 </div>
             </div>
         </div>

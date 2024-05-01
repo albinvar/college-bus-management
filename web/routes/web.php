@@ -6,6 +6,7 @@ use App\Http\Controllers\FeeController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,7 @@ Route::middleware([
     Route::get('/buses', [BusController::class, 'index',])->name('admin.manage-bus');
 
     Route::get('/parent/monitor/{student}', [GuardianController::class, 'show',])->name('parent.monitor-child');
+    Route::get('/staff/{bus}/manual-checkin', [StaffController::class, 'index',])->name('staff.manual-checkin');
 
     Route::get('/assigner-mode', [BusController::class, 'assignerMode',])->name('admin.assigner-mode');
 

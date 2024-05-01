@@ -13,7 +13,23 @@ class StaffController extends Controller
      */
     public function index()
     {
-        //
+        // check if authenticated user is a staff
+        if(!auth()->user()->role('staff')) {
+            abort(403);
+        }
+
+        // students on the bus
+        $bus = auth()->user()->staff->bus ?? null;
+
+        if(!$bus) {
+            return redirect()->route('dashboard');
+        }
+
+        // get the students on the bus
+        $students = $bus->students()->paginate(10);
+
+
+        return view('roles.staff.students', compact('students'));
     }
 
     /**
