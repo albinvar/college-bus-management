@@ -1,9 +1,3 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Manage Access Logs') }}
-        </h2>
-    </x-slot>
 <div id="hs-notifications-{{ $student->id }}" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
     <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
         <div class="relative flex flex-col bg-white border shadow-sm rounded-xl overflow-hidden">
@@ -56,9 +50,9 @@
                       Semester :
                       @if($student->student->currentSemester)
                           <strong>{{ $student->student->currentSemester->semester->name }}</strong><br>
-                        @else
-                            <strong>Not assigned</strong><br>
-                        @endif
+                      @else
+                          <strong>Not assigned</strong><br>
+                      @endif
                       Bus : <strong>{{ $student->busBoardingPoint->bus->name }} (bus no : {{ $student->busBoardingPoint->bus->bus_no }})</strong>
                   </span>
                 </span>
@@ -102,5 +96,3 @@
     </div>
 </div>
 
-<!-- End Notification Modal -->
-</x-app-layout>

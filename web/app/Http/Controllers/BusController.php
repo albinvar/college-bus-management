@@ -221,33 +221,7 @@ class BusController extends Controller
      */
     public function assignerMode()
     {
-        // get the assigner mode from the settings table
-        $assignerMode = Settings::where('key', 'assigner_mode')->first();
 
-        // if the assigner mode is not set, create a new one
-        if (!$assignerMode) {
-            $assignerMode = new Settings();
-            $assignerMode->key = 'assigner_mode';
-            $assignerMode->value = json_encode(['bus_id' => null, 'student_id' => null]);
-            $assignerMode->is_active = false;
-            $assignerMode->save();
-        }
-
-        // get the assigner mode data
-        $assignerModeData = json_decode($assignerMode->value);
-
-        // get student details if the student_id is set
-        $student = null;
-        if ($assignerModeData->student_id) {
-            $student = Student::find($assignerModeData->student_id);
-        }
-
-        // get bus details if the bus_id is set
-        $bus = null;
-        if ($assignerModeData->bus_id) {
-            $bus = Bus::find($assignerModeData->bus_id);
-        }
-
-        return view('roles.admin.assigner-mode', compact('student', 'bus'));
+        return view('roles.admin.assigner-mode');
     }
 }
