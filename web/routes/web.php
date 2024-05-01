@@ -4,6 +4,7 @@ use App\Http\Controllers\AccessLogController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SemesterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,11 +45,7 @@ Route::middleware([
 
     Route::get('/assigner-mode', [BusController::class, 'assignerMode',])->name('admin.assigner-mode');
 
-    Route::get('/semesters', function () {
-        // get all student semesters with student info and semester info for the current authenticated user
-        $semesters = auth()->user()->student->studentSemesters()->with('semester')->get();
-        return view('roles.student.semesters', compact('semesters'));
-    })->name('student.semesters');
+    Route::get('/semesters', [SemesterController::class, 'showSemesters'])->name('student.semesters');
 
     Route::get('/access-logs/{bus}', [AccessLogController::class, 'busShow',])->name('admin.manage-bus.access-logs');
 
