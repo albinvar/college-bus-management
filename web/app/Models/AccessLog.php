@@ -31,4 +31,40 @@ class AccessLog extends Model
         return $this->belongsTo(User::class);
     }
 
+    // get formatted custom message based on status, action, and type
+    public function getCustomMessageAttribute(): string
+    {
+        $message = '';
+        if($this->action == "CBMS Machine")
+        {
+            if ($this->type == 'in')
+            {
+                $message = 'Check in 💳';
+
+                if ($this->status == 'success')
+                {
+                    $this->message .= '✅';
+                } elseif ($this->status == 'failed') {
+                    $this->message .= '❌';
+                } else {
+                    $this->message .= '❓';
+                }
+            } elseif ($this->type == 'out') {
+                $message = 'Check out 💳';
+            } else {
+                $message = 'Other';
+            }
+        } else {
+           if ($this->status == 'success')
+                {
+                    $message = 'Success';
+                } elseif ($this->status == 'failed') {
+                    $message = 'Failed';
+                } else {
+                    $message = 'Other';
+                }
+        }
+
+        return $message;
+    }
 }

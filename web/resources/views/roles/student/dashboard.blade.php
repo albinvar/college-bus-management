@@ -85,7 +85,11 @@
                             <p class="font-medium text-slate-700 dark:text-navy-100">
                                 Current Semester
                             </p>
-                            <p class="text-right">{{ Auth::user()->student->currentSemester->semester->name }}</p>
+                            @if (Auth::user()->student->currentSemester)
+                                <p class="text-right">{{ Auth::user()->student->currentSemester->semester->name }}</p>
+                            @else
+                                <p class="text-right">Not Assigned</p>
+                            @endif
                         </div>
                         <div class="flex justify-between">
                             <p class="font-medium text-slate-700 dark:text-navy-100">
@@ -132,12 +136,49 @@
     {{-- Parents Column --}}
     {{-- Start --}}
     <div class="mt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4 border border-gray-200 p-4">
-        <div class="px-6 text-xl text-left font-semibold text-gray-600 mb-8">
+
+
+        <!-- Card -->
+        <div class="bg-white border border-gray-300 rounded-lg p-5">
+            @if (Auth::user()->student->currentSemester && Auth::user()->student->currentSemester->fees)
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="flex-shrink-0">
+                    <h3 class="block text-lg font-semibold text-gray-800 ">
+                        Fees Status : @if (Auth::user()->student->currentSemester->fees->remaining_amount > 0)
+                            <span class="text-red-600">Due</span>
+                        @else
+                            <span class="text-green-600">Paid</span>
+                        @endif
+                    </h3>
+                </div>
+            </div>
+                <p class="text-gray-600 text-sm pb-3">
+                    Due Amount : Rs <span class="text-red-700 font-semibold">{{ Auth::user()->student->currentSemester->fees->remaining_amount }}</span> / Rs <span class="text-green-700 font-semibold">{{ Auth::user()->student->currentSemester->fees->due_amount }}</span> <br><br>
+                    <span class="text-gray-800">Please do verify it with college office if you have any further queries.</span><br><br>
+
+                    <a href="{{ route('student.semesters') }}" class="text-blue-600">View Details</a>
+                </p>
+            @else
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="flex-shrink-0">
+                    <h3 class="block text-lg font-semibold text-gray-800 ">
+                        Fees Status : <span class="text-red-600">Not Generated</span>
+                    </h3>
+                </div>
+            </div>
+                <p class="text-gray-600 text-sm pb-3">
+                    Fees for the current semester is not generated yet. Please do contact college office for further details.
+                </p>
+            @endif
+        </div>
+        <!-- End Card -->
+
+        <div class="mt-6 px-6 text-xl text-left font-semibold text-gray-600 mb-8">
             Parents
         </div>
     @foreach (Auth::user()->guardians as $parent)
         <!-- Card -->
-        <a class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition" href="#">
+        <a class="group flex flex-col bg-white border rounded-lg hover:shadow-md transition" href="#">
             <div class="px-4 py-3 ">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center">
