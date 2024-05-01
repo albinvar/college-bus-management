@@ -22,6 +22,7 @@
                                     <th class="px-4 py-2">Semester</th>
                                     <th class="px-4 py-2">Start Date</th>
                                     <th class="px-4 py-2">End Date</th>
+                                    <th class="px-4 py-2">Fee Status</th>
                                     <th class="px-4 py-2">Action</th>
                                 </tr>
                             </thead>
@@ -35,6 +36,11 @@
                                         </td>
                                         <td class="border px-4 py-2">{{ $semester->semester->start_date }}</td>
                                         <td class="border px-4 py-2">{{ $semester->semester->end_date }}</td>
+                                        <td class="border px-4 py-2">
+                                            <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">
+                                                Fee Paid
+                                            </span>
+                                        </td>
                                         <td class="border px-4 py-2">
                                             <a href="" class="text-blue-500">View</a>
                                         </td>
