@@ -16,6 +16,50 @@
                     <div class="flex flex-col">
 
 
+                        @if(session('success'))
+                            <div class="bg-green-50 border border-green-200 text-sm text-green-800 rounded-lg p-4" role="alert">
+                                <div class="flex">
+                                    <div class="flex-shrink-0">
+                                        <svg class="flex-shrink-0 size-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                                            <path d="M12 9v4"></path>
+                                            <path d="M12 17h.01"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h3 class="text-sm font-semibold">
+                                            Success
+                                        </h3>
+                                        <div class="mt-1 text-sm text-green-700">
+                                            {{ session('success') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if(session('error'))
+                            <div class="bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg p-4" role="alert">
+                                <div class="flex">
+                                    <div class="flex-shrink-0">
+                                        <svg class="flex-shrink-0 size-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                                            <line x1="12" y1="16" x2="12" y2="16"></line>
+                                        </svg>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h3 class="text-sm font-semibold">
+                                            Error
+                                        </h3>
+                                        <div class="mt-1 text-sm text-red-700">
+                                            {{ session('error') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="my-1.5 min-w-full inline-block align-middle mb-6 ">
                             <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                                 <!-- Header -->
@@ -222,10 +266,14 @@
                                                             <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 8v4l2 2"/><path d="M12 16h.01"/></svg>
                                                             Link Card
                                                         </button>
-                                                        <a href="" class="py-1.5 px-2 inline-flex items-center gap-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M12 12v9"/></svg>
-                                                            Generate Fees
-                                                        </a>
+                                                        <form action="{{ route('admin.generate-fees', ['studentSemester' => $student->student->currentSemester->id ?? 'non']) }}" method="POST">
+                                                            @csrf
+                                                            @method('POST')
+                                                            <button type="submit" class="py-1.5 px-2 inline-flex items-center gap-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                                Generate Fee
+                                                            </button>
+                                                        </form>
                                                         <div class="hs-dropdown relative inline-block [--placement:bottom-right]">
                                                             <button id="hs-table-dropdown-1" type="button" class="hs-dropdown-toggle py-1.5 px-2 inline-flex justify-center items-center gap-2 rounded-lg text-gray-700 align-middle disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm">
                                                                 <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>

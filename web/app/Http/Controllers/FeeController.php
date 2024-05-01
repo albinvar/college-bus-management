@@ -92,10 +92,10 @@ class FeeController extends Controller
                 'due_amount' => $busFare,
             ],
             [
-                'due_date' => now()->addDays(7),
+                'due_date' => now()->addDays(30),
             ]
         );
 
-        return response()->json($fee);
+        return redirect()->route('admin.manage-bus.students', ['bus' => $studentSemester->student->user->busBoardingPoint()->first()->bus_id])->with('success', 'Fees generated successfully');
     }
 }

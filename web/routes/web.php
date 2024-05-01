@@ -59,5 +59,5 @@ Route::middleware([
 
 
     // Generate fees for the student semester
-    Route::get('/fees/{studentSemester}', [FeeController::class, 'generateFees',])->name('admin.generate-fees');
+    Route::post('/fees/{studentSemester}', [FeeController::class, 'generateFees',])->name('admin.generate-fees');
 });
