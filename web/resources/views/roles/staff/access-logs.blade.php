@@ -256,7 +256,7 @@
                     @endphp
 
                     @if($latestLog->user ?? null)
-                    <div class="mt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4 border border-gray-200 rounded-xl shadow-sm overflow-hidden text-slate-700">
+                    <div class="mt-12 lg:mt-0 col-span-12 lg:col-span-4 xl:col-span-4 border border-gray-200 rounded-xl shadow-sm overflow-hidden text-slate-700 mb-auto">
                         <div
                             class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-1 lg:gap-6 bg-info/10 px-4 pb-5"
                         >
@@ -295,7 +295,7 @@
                                             {{ $latestLog->user->name }}
 
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                        Staff
+                                                Student
                                     </span>
                                         </h3>
                                         <p class="text-xs text-navy-300">
@@ -333,18 +333,29 @@
                                                 </span>
                                             </p>
                                         </div>
-{{--                                        <div class="flex justify-between">--}}
-{{--                                            <p class="font-medium">--}}
-{{--                                                No: of Students--}}
-{{--                                            </p>--}}
-{{--                                            <p class="text-right">21</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="flex justify-between">--}}
-{{--                                            <p class="font-medium">--}}
-{{--                                                No: of Staffs--}}
-{{--                                            </p>--}}
-{{--                                            <p class="text-right">2</p>--}}
-{{--                                        </div>--}}
+
+                                        <div class="flex justify-between">
+                                            <p class="font-medium">
+                                                Fees Status
+                                            </p>
+                                            <p class="text-right
+                                                @if($latestLog->user->student->currentSemester->fees->remaining_amount == 0)
+                                                    text-green-800
+                                                @else
+                                                    text-red-800
+                                                @endif
+                                            ">
+                                                @if($latestLog->user->student->currentSemester->fees->remaining_amount == 0)
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                        Paid
+                                                    </span>
+                                                @else
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                        Unpaid
+                                                    </span>
+                                                @endif
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
