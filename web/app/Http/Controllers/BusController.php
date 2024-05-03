@@ -23,6 +23,9 @@ class BusController extends Controller
      */
     public function core()
     {
+        // log the request for debugging
+        \Log::info(request()->all());
+
         // check if the request has the required parameters
         if (!request()->has('bus_id') || !request()->has('card_token')) {
             return response()->json(['message' => 'Invalid request'], 400);
