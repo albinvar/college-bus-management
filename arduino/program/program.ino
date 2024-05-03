@@ -10,23 +10,36 @@
 // I2C address for the LCD
 #define I2C_ADDR 0x27
 
+#define BUZZER_PIN A0
+
 // Define the LCD display
 LiquidCrystal_I2C lcd(I2C_ADDR, 16, 2);
 
 String apn = "internet";                    // APN
 String apn_u = "";                         // APN-Username
 String apn_p = "";                         // APN-Password
-String url = "http://bus.w3x.live/api/c"; // URL of Server2
-String BEARER_TOKEN = "7SI3sQZrGyX5nsEDhZGxTe10NgQqKk7YbkDcy2Qo9249d5a5";
-
-const String bus_id = "1"; // Replace "YOUR_BUS_ID" with your actual bus ID
+String url = "http://buspass.albinvar.in/api/c"; // URL of Server
 
 SoftwareSerial SWserial(2, 3); // RX, TX
 
 MFRC522 mfrc522(10, 9);  // Define RFID reader pins (SS, RST)
 
+
+void buzzerNotification(int delaySeconds=500)
+{
+  // Inside functions where you want to activate the buzzer, add the following line:
+  tone(BUZZER_PIN, 2000); // Activate the buzzer at 2000 Hz
+
+  // Add a delay if you want the buzzer to sound for a specific duration
+  delay(delaySeconds); // Sound the buzzer for 500 milliseconds (0.5 seconds)
+
+  // After the delay, turn off the buzzer
+  noTone(BUZZER_PIN);
+}
+
 void setup() {
   Serial.begin(115200);
+  buzzerNotification(300);
   Serial.println("SIM800 AT CMD Test");
   SWserial.begin(9600);
 
@@ -60,6 +73,7 @@ void setup() {
   gsmConfigGPRS();
   lcd.setCursor(0, 1);
   lcd.print("Success...!!!");
+  buzzerNotification();
 
   delay(2000);
 
@@ -70,19 +84,19 @@ void setup() {
   lcd.print("Please scan your");
   lcd.setCursor(0, 1);
   lcd.print("card here...");
+  buzzerNotification(300);
 }
 
 void loop() {
 
   if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
-    tone(7, 1000, 250);  
     // Read RFID card UID
     String uid = "";
     for (byte i = 0; i < mfrc522.uid.size; i++) {
       uid += String(mfrc522.uid.uidByte[i], HEX);
     }
-    // Make HTTP request with UID and bus_id as parameters
-    gsmHTTPPost("c=" + uid + "&b=" + bus_id);
+    // Make HTTP request with UID as a parameter
+    gsmHTTPPost("c=" + uid + "&b=1");
     delay(1000);  // Adjust delay based on your requirements
     lcd.setCursor(0, 0);
     lcd.print("Please scan your");
@@ -99,23 +113,24 @@ void gsmHTTPPost(String postdata) {
 
   lcd.setCursor(0, 0);
   lcd.print("Please wait...");
+  buzzerNotification();
 
   Serial.println(" --- Start GPRS & HTTP --- ");
   gsmSendSerial("AT+SAPBR=1,1");
   gsmSendSerial("AT+SAPBR=2,1");
   gsmSendSerial("AT+HTTPINIT");
   gsmSendSerial("AT+HTTPPARA=CID,1");
-  gsmSendSerial("AT+HTTPPARA=URL," + url+ '?' + postdata);
-  gsmSendSerial("AT+HTTPPARA=CONTENT,application/json");
-  // gsmSendSerial("AT+HTTPPARA=USERDATA," + BEARER_TOKEN); // Replace YOUR_BEARER_TOKEN with your actual bearer token
-  gsmSendSerial("AT+HTTPDATA=" + String(postdata.length() + 10) + ",10000");
-
+  gsmSendSerial("AT+HTTPPARA=URL," + url + "?" + postdata);
+  gsmSendSerial("AT+HTTPPARA=CONTENT,application/x-www-form-urlencoded");
+  gsmSendSerial("AT+HTTPDATA=100,1000");
+ 
   lcd.setCursor(0, 0);
   lcd.print("Sending Request..");
-  gsmSendSerial("AT+HTTPACTION=1");
+  gsmSendSerial("AT+HTTPACTION=0");
   lcd.setCursor(0, 1);
   lcd.print("Done..!!!");
   delay(7000);  // Wait for HTTP response
+  buzzerNotification();
   // Read HTTP status code
   String response = gsmReadResponse();
   int statusCode = response.substring(response.indexOf(",") + 1).toInt();
@@ -155,7 +170,6 @@ void gsmHTTPPost(String postdata) {
   lcd.setCursor(0, 0);
   lcd.print("Success...!");
 }
-
 
 
 void gsmConfigGPRS() {

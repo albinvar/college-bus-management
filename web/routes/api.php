@@ -24,4 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/c', [BusController::class, 'core']);
+Route::get('/c', [BusController::class, 'core']);

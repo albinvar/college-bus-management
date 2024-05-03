@@ -339,13 +339,13 @@
                                                 Fees Status
                                             </p>
                                             <p class="text-right
-                                                @if($latestLog->user->student->currentSemester->fees->remaining_amount == 0)
+                                                @if($latestLog->user->student->currentSemester->fees->remaining_amount ?? 'non' == 0)
                                                     text-green-800
                                                 @else
                                                     text-red-800
                                                 @endif
                                             ">
-                                                @if($latestLog->user->student->currentSemester->fees->remaining_amount == 0)
+                                                @if($latestLog->user->student->currentSemester->fees->remaining_amount ?? 'non' == 0)
                                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                                         Paid
                                                     </span>

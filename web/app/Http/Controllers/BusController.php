@@ -27,13 +27,13 @@ class BusController extends Controller
         \Log::info(request()->all());
 
         // check if the request has the required parameters
-        if (!request()->has('bus_id') || !request()->has('card_token')) {
+        if (!request()->has('b') || !request()->has('c')) {
             return response()->json(['message' => 'Invalid request'], 400);
         }
 
         // sanitize the request parameters
-        $busId = request()->bus_id;
-        $cardToken = request()->card_token;
+        $busId = request()->b;
+        $cardToken = request()->c;
 
         // create a new access log
         $accessLog = new AccessLog();
