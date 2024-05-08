@@ -265,9 +265,15 @@
                                                     <span class="text-sm text-gray-600">
                                                         Rs {{ $student->student->currentSemester->fees->remaining_amount ?? 0 }}
                                                         @if($student->student->currentSemester->fees->remaining_amount ?? 'non' == 0)
-                                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                                Paid
-                                                            </span>
+                                                            @if($student->student->currentSemester->fees->remaining_amount <= 0)
+                                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                                    Invoice Paid
+                                                                </span>
+                                                                @else
+                                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                                    Invoice Unpaid
+                                                                </span>
+                                                            @endif
                                                         @else
                                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                                                 Invoice Pending
