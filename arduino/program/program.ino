@@ -18,7 +18,7 @@ LiquidCrystal_I2C lcd(I2C_ADDR, 16, 2);
 String apn = "internet";                    // APN
 String apn_u = "";                         // APN-Username
 String apn_p = "";                         // APN-Password
-String url = "http://buspass.albinvar.in/api/c"; // URL of Server
+String url = "http://bus.w3x.live/api/c"; // URL of Server
 
 SoftwareSerial SWserial(2, 3); // RX, TX
 
