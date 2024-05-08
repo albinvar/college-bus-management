@@ -1,9 +1,9 @@
 {{-- Start --}}
-<div class="col-span-12 lg:col-span-4 xl:col-span-4">
+<div class="col-span-12 lg:col-span-4 xl:col-span-4" wire:poll.1500ms>
  <div class="flex items-center justify-between pt-4 px-4">
         <h2 class="font-semibold text-gray-800">Realtime Updates</h2>
         <button type="button" class="text-sm text-gray-500 hover:text-gray-600">View all</button>
-    </div>
+ </div>
 
  <!-- component -->
         <div class="p-4 mx-4 w-full mx-auto flow-root">

@@ -29,6 +29,12 @@
                     >
                         List Students
                     </a>
+                    <a
+                        href="{{ route('staff.manage-bus.access-logs', ['bus' => auth()->user()->staff->bus]) }}"
+                        class="text-center btn px-3 py-2 rounded-lg mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                    >
+                        Real Time Monitoring
+                    </a>
                 </div>
             </div>
         </div>

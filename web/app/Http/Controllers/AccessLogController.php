@@ -57,10 +57,7 @@ class AccessLogController extends Controller
             abort(403);
         }
 
-        // Access Logs for a specific bus
-        $accessLogs = $bus->accessLogs()->with('user')->latest()->paginate(10);
-
-        return view('roles.staff.access-logs', compact('accessLogs', 'bus'));
+        return view('roles.staff.access-logs', compact('bus'));
     }
 
     /**
