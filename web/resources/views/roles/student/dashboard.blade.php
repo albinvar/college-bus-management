@@ -26,11 +26,13 @@
                 <p class="mt-2 leading-relaxed">Have a nice day at college</p>
                 <p>System : <span class="font-semibold">UP</span></p>
 
+                <a href="{{ route('student.semesters') }}">
                 <button
                     class="btn px-3 py-2 rounded-lg mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
                 >
-                    View Schedule
+                    Semesters
                 </button>
+                </a>
 
 
                 <div class="mt-6">
@@ -224,6 +226,9 @@
                             <h3 class="group-hover:text-blue-600 font-semibold text-gray-700">
                                 {{ $parent->user->name }}
                             </h3>
+                            <p class="text-xs text-gray-600">
+                                {{ $parent->pivot->relationship }}
+                            </p>
                         </div>
                     </div>
                     <div class="ps-3">
