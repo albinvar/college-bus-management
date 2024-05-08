@@ -134,25 +134,46 @@
                             <p class="font-medium text-slate-700 dark:text-navy-100">
                                 Last Login
                             </p>
-                            <p class="text-right">{{ now()->format('d-m-Y') }}</p>
+                            <p class="text-right">
+                                {{ Auth::user()->updated_at->format('d-m-Y') }}
+                            </p>
                         </div>
                         <div class="flex justify-between">
                             <p class="font-medium text-slate-700 dark:text-navy-100">
                                 Registered Bus
                             </p>
-                            <p class="text-right">Bus 16</p>
+                            <p class="text-right">
+                                @if (Auth::user()->busBoardingPoint)
+                                    {{ Auth::user()->busBoardingPoint->bus->name }}
+                                @else
+                                    Not Assigned
+                                @endif
+                            </p>
                         </div>
                         <div class="flex justify-between">
                             <p class="font-medium text-slate-700 dark:text-navy-100">
                                 Last Check IN / Check Out
                             </p>
-                            <p class="text-right">25 May 2021</p>
+                            <p class="text-right">
+                                @if (Auth::user()->accessLogs->count() > 0)
+                                    {{ Auth::user()->accessLogs->last()->created_at->format('d-m-Y') }}
+                                    <br>
+                                    {{ Auth::user()->accessLogs->last()->created_at->format('H:i A') }}
+                                @else
+                                    Not Available
+                                @endif
                         </div>
                         <div class="flex justify-between">
                             <p class="font-medium text-slate-700 dark:text-navy-100">
                                 Boarding Point
                             </p>
-                            <p class="text-right">Karukachal</p>
+                            <p class="text-right">
+                                @if (Auth::user()->busBoardingPoint)
+                                    {{ Auth::user()->busBoardingPoint->boardingPoint->place }}
+                                @else
+                                    Not Assigned
+                                @endif
+                            </p>
                         </div>
                     </div>
                 </div>
