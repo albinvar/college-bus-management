@@ -190,19 +190,14 @@
                                                                 <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('admin.manage-bus.access-logs', ['bus' => $bus->id]) }}">
                                                                     Access Logs
                                                                 </a>
-                                                                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                                                                    Staffs (wip)
-                                                                </a>
                                                                 <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('admin.manage-bus.students', ['bus' => $bus->id]) }}">
                                                                     Students
                                                                 </a>
-                                                                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                                                                    Edit (wip)
-                                                                </a>
+                                                                
                                                             </div>
                                                             <div class="py-2 first:pt-0 last:pb-0">
                                                                 <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-red-600 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                                                                    Delete (wip)
+                                                                    Delete
                                                                 </a>
                                                             </div>
                                                         </div>
