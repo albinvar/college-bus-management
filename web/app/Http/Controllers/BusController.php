@@ -227,4 +227,17 @@ class BusController extends Controller
 
         return view('roles.admin.assigner-mode');
     }
+
+    public function co2Show(Bus $bus)
+    {
+        // // get the co2 data for the bus
+        // $co2 = $bus->co2;
+
+        // // check if the bus has co2 data
+        // if (!$co2) {
+        //     return redirect()->back()->with('error', 'No CO2 data found for this bus');
+        // }
+
+        return view('roles.admin.co2', compact('bus'));
+    }
 }
