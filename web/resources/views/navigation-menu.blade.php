@@ -163,9 +163,16 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+             @if (Auth::user()->hasRole('student'))
+            <x-responsive-nav-link href="{{ route('student.semesters') }}" :active="request()->routeIs('student.semesters')">
+                {{ __('Semesters') }}
+            </x-responsive-nav-link>
+            @endif
+            @if (Auth::user()->hasRole('admin'))
             <x-responsive-nav-link href="{{ route('admin.manage-bus') }}" :active="request()->routeIs('admin.manage-bus')">
                 {{ __('Manage College Buses') }}
             </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
