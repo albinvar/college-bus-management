@@ -22,130 +22,123 @@ class BusController extends Controller
      *
      */
     public function core()
-    {
-        // log the request for debugging
-        \Log::info(request()->all());
+{
+    \Log::info(request()->all());
 
-        // check if the request has the required parameters
-        if (!request()->has('b') || !request()->has('c')) {
-            return response()->json(['message' => 'Invalid request'], 400);
-        }
+    if (!request()->has('b') || !request()->has('c')) {
+        return response()->json(['message' => 'Invalid request'], 400);
+    }
 
-        // sanitize the request parameters
-        $busId = request()->b;
-        $cardToken = request()->c;
+    $busId = request()->b;
+    $cardToken = request()->c;
 
-        // create a new access log
-        $accessLog = new AccessLog();
-        $accessLog->bus_id = $busId;
-        $accessLog->card_token = $cardToken;
-        $accessLog->ip_address = request()->ip();
+    $accessLog = new AccessLog();
+    $accessLog->bus_id = $busId;
+    $accessLog->card_token = $cardToken;
+    $accessLog->ip_address = request()->ip();
 
-        // check if the bus exists
-        $bus = Bus::find($busId);
-        if (!$bus) {
-            $accessLog->status = 'failed';
-            $accessLog->message = 'Bus not found';
-            $accessLog->action = 'CBMS Machine';
-            $accessLog->type = 'in';
-            $accessLog->save();
-            return response()->json(['message' => 'Bus not found'], 404);
-        }
-
-        // check if the system is in assigner mode
-        $assignerMode = Settings::where('key', 'assigner_mode')->first();
-
-        // if the system is in assigner mode, assign the card to the student who is mentioned in the assigner mode json object
-        if ($assignerMode && $assignerMode->is_active) {
-            $assignerModeData = json_decode($assignerMode->value);
-
-            if ($assignerModeData->bus_id == $busId) {
-                // check if the card exists
-                $user = User::where('card_token', $cardToken)->first();
-                if ($user) {
-                    $accessLog->status = 'failed';
-                    $accessLog->message = 'Card already assigned';
-                    $accessLog->action = 'Assigner';
-                    $accessLog->type = 'non';
-                    $accessLog->save();
-                    return response()->json(['message' => 'Card already assigned'], 400);
-                }
-
-                // check if the student exists
-                $student = Student::find($assignerModeData->student_id);
-                if (!$student) {
-                    $accessLog->status = 'failed';
-                    $accessLog->message = 'Student not found';
-                    $accessLog->user_id = $assignerModeData->student_id;
-                    $accessLog->action = 'Assigner';
-                    $accessLog->type = 'non';
-                    $accessLog->save();
-                    return response()->json(['message' => 'Student not found'], 404);
-                }
-
-                // assign the card to the student
-                $student->user->card_token = $cardToken;
-                $student->user->save();
-
-                // record the activity
-                $accessLog->status = 'success';
-                $accessLog->message = 'Card assigned successfully';
-                $accessLog->action = 'Assigner';
-                $accessLog->type = 'non';
-                $accessLog->user_id = $student->user_id;
-                $accessLog->save();
-
-                // reset the assigner mode
-                $assignerMode->is_active = false;
-                $assignerMode->value = json_encode(['bus_id' => null, 'student_id' => null]);
-                $assignerMode->save();
-
-                // return the response to the cbms machine
-                return response()->json(['message' => 'Card assigned successfully'], 201);
-            }
-        }
-
-        // if not, system is in validation mode.
-
-        // check if the card exists for a user which is linked from students model
-        // retrieve the student who is using the card
-        $user = User::where('card_token', $cardToken)->first();
-
-        // check if the user exists
-        if (!$user) {
-            $accessLog->status = 'failed';
-            $accessLog->message = 'Card not found';
-            $accessLog->action = 'CBMS Machine';
-            $accessLog->type = 'in';
-            $accessLog->save();
-            return response()->json(['message' => 'Card not assigned'], 404);
-        }
-
-        $student = $user->student;
-
-        // check if the bus is assigned to the student who is using the card
-        if ($user->busBoardingPoint->bus_id != $busId) {
-            $accessLog->status = 'failed';
-            $accessLog->message = 'Card not assigned due to bus mismatch';
-            $accessLog->action = 'CBMS Machine';
-            $accessLog->type = 'in';
-            return response()->json(['message' => 'Card not assigned due to bus mismatch'], 400);
-        }
-
-        // check the fee status of the student
-        // TODO: check the fee status of the student
-
-        // record the activity
-        $accessLog->status = 'success';
-        $accessLog->message = 'Card validated successfully';
+    $bus = Bus::find($busId);
+    if (!$bus) {
+        $accessLog->status = 'failed';
+        $accessLog->message = 'Bus not found';
         $accessLog->action = 'CBMS Machine';
         $accessLog->type = 'in';
-        $accessLog->user_id = $user->id;
         $accessLog->save();
-
-        // return the response to the cbms machine
-        return response()->json(['message' => 'Card validated successfully'], 200);
+        return response()->json(['message' => 'Bus not found'], 404);
     }
+
+    $assignerMode = Settings::where('key', 'assigner_mode')->first();
+    if ($assignerMode && $assignerMode->is_active) {
+        $assignerModeData = json_decode($assignerMode->value);
+
+        if ($assignerModeData->bus_id == $busId) {
+            $user = User::where('card_token', $cardToken)->first();
+            if ($user) {
+                $accessLog->status = 'failed';
+                $accessLog->message = 'Card already assigned';
+                $accessLog->action = 'Assigner';
+                $accessLog->type = 'non';
+                $accessLog->save();
+                return response()->json(['message' => 'Card already assigned'], 400);
+            }
+
+            $student = Student::find($assignerModeData->student_id);
+            if (!$student) {
+                $accessLog->status = 'failed';
+                $accessLog->message = 'Student not found';
+                $accessLog->user_id = $assignerModeData->student_id;
+                $accessLog->action = 'Assigner';
+                $accessLog->type = 'non';
+                $accessLog->save();
+                return response()->json(['message' => 'Student not found'], 404);
+            }
+
+            $student->user->card_token = $cardToken;
+            $student->user->save();
+
+            $accessLog->status = 'success';
+            $accessLog->message = 'Card assigned successfully';
+            $accessLog->action = 'Assigner';
+            $accessLog->type = 'non';
+            $accessLog->user_id = $student->user_id;
+            $accessLog->save();
+
+            $assignerMode->is_active = false;
+            $assignerMode->value = json_encode(['bus_id' => null, 'student_id' => null]);
+            $assignerMode->save();
+
+            return response()->json(['message' => 'Card assigned successfully'], 201);
+        }
+    }
+
+    $user = User::where('card_token', $cardToken)->first();
+    if (!$user) {
+        $accessLog->status = 'failed';
+        $accessLog->message = 'Card not assigned';
+        $accessLog->action = 'CBMS Machine';
+        $accessLog->type = 'in';
+        $accessLog->save();
+        return response()->json(['message' => 'Card not assigned'], 404);
+    }
+
+    $student = $user->student;
+
+    if ($user->busBoardingPoint->bus_id != $busId) {
+        $accessLog->status = 'failed';
+        $accessLog->message = 'Card not assigned due to bus mismatch';
+        $accessLog->action = 'CBMS Machine';
+        $accessLog->type = 'in';
+        $accessLog->save();
+        return response()->json(['message' => 'Card not assigned due to bus mismatch'], 400);
+    }
+
+    // Prevent double scan within 5 seconds
+    $lastLog = AccessLog::where('user_id', $user->id)
+        ->where('bus_id', $busId)
+        ->orderByDesc('created_at')
+        ->first();
+
+    if ($lastLog && \Carbon\Carbon::parse($lastLog->created_at)->diffInSeconds(now()) < 5) {
+        return response()->json(['message' => 'Please wait before scanning again'], 429);
+    }
+
+    // Determine check-in or checkout
+    if ($lastLog && $lastLog->type === 'in' && $lastLog->status === 'success') {
+        $accessLog->type = 'out';
+        $accessLog->message = 'Checked out successfully';
+    } else {
+        $accessLog->type = 'in';
+        $accessLog->message = 'Checked in successfully';
+    }
+
+    $accessLog->status = 'success';
+    $accessLog->action = 'CBMS Machine';
+    $accessLog->user_id = $user->id;
+    $accessLog->save();
+
+    return response()->json(['message' => $accessLog->message], 200);
+}
+
 
 
 
