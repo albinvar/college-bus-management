@@ -57,8 +57,19 @@ class DatabaseSeeder extends Seeder
             'boarding_point' => 'Kottayam',
             'drop_off_point' => 'Kottayam',
             'user_id' => \App\Models\User::factory()->create([
-                'name' => '',
+                'name' => 'Sharon',
                 'email' => 'student3@gmail.com',
+                'password' => bcrypt('password'),
+            ])->id,
+        ]);
+
+        // Seed the students
+        $student4 = \App\Models\Student::factory()->create([
+            'boarding_point' => 'Kottayam',
+            'drop_off_point' => 'Kottayam',
+            'user_id' => \App\Models\User::factory()->create([
+                'name' => 'Harsha',
+                'email' => 'student4@gmail.com',
                 'password' => bcrypt('password'),
             ])->id,
         ]);
@@ -67,6 +78,7 @@ class DatabaseSeeder extends Seeder
         $student->user->assignRole('student');
         $student2->user->assignRole('student');
         $student3->user->assignRole('student');
+        $student4->user->assignRole('student');
 
         // get bus boarding point based on a place
         $busBoardingPoint = \App\Models\BusBoardingPoint::whereHas('boardingPoint', function ($query) {
@@ -97,6 +109,15 @@ class DatabaseSeeder extends Seeder
         $student3->user->bus_boarding_point_id = $busBoardingPoint3->id;
         $student3->user->save();
 
+        // 3rd student
+        $busBoardingPoint4 = \App\Models\BusBoardingPoint::whereHas('boardingPoint', function ($query) {
+            $query->where('place', 'Kottayam');
+        })->first();
+
+        // Update the bus_boarding_point_id in the users table
+        $student4->user->bus_boarding_point_id = $busBoardingPoint4->id;
+        $student4->user->save();
+
         // seed the semester for the student
         \App\Models\StudentSemester::factory()->create([
             'student_id' => $student->id,
@@ -109,6 +130,15 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\StudentSemester::factory()->create([
             'student_id' => $student3->id,
+            'semester_id' => \App\Models\Semester::inRandomOrder()->first()->id,
+            'start_date' => now()->subMonths(6),
+            'end_date' => now()->addMonths(6),
+            'status' => 'inactive',
+            'is_current' => false,
+        ]);
+
+        \App\Models\StudentSemester::factory()->create([
+            'student_id' => $student4->id,
             'semester_id' => \App\Models\Semester::inRandomOrder()->first()->id,
             'start_date' => now()->subMonths(6),
             'end_date' => now()->addMonths(6),
