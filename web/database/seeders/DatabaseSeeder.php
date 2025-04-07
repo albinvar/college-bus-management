@@ -207,7 +207,7 @@ class DatabaseSeeder extends Seeder
         $driver = \App\Models\Driver::factory()->create([
             'license_number' => '123456789',
             'user_id' => \App\Models\User::factory()->create([
-                'name' => 'Veerapan',
+                'name' => 'Siby Joseph',
                 'email' => 'driver1@gmail.com',
                 'password' => bcrypt('password'),
             ])->id,

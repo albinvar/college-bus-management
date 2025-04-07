@@ -25,34 +25,23 @@
                 <div class="grid grid-cols-2 gap-4 mt-4">
                     <button
                         class="btn px-3 py-2 rounded-lg mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                        onclick="window.location.href='/buses'"
                     >
-                        API Access Points
+                        College Buses
                     </button>
                     <button
                         class="btn px-3 py-2 rounded-lg mt-6 border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                        onclick="window.location.href='/buses'"
                     >
                         Access Logs
                     </button>
                     <button
                         class="btn px-3 py-2 rounded-lg border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
+                        onclick="window.location.href='https://tracking.hostfree.co/buses'"
                     >
-                        Bus Boarding Points
+                        Live Location
                     </button>
-                    <button
-                        class="btn px-3 py-2 rounded-lg border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
-                    >
-                        Contact Driver
-                    </button>
-                    <button
-                        class="btn px-3 py-2 rounded-lg border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
-                    >
-                        Fee Details
-                    </button>
-                    <button
-                        class="btn px-3 py-2 rounded-lg border border-white/10 bg-white/20 text-white hover:bg-white/30 focus:bg-white/30"
-                    >
-                        Bus Pass Details
-                    </button>
+                    
                 </div>
             </div>
         </div>

@@ -28,7 +28,7 @@ class BoardingPoint extends Model
     // compute bus fare at 10 rs per km to college
     public function getBusFareAttribute(): float
     {
-        $perKmFare = 2.5;
+        $perKmFare = 1.3;
         $noOfKms = $this->distance_from_college;
         $noOfWorkingDays = 20;
         $noOfMonthsForSemester = 5;
