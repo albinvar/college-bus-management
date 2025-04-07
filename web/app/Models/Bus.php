@@ -59,4 +59,14 @@ class Bus extends Model
     {
         return $this->capacity - $this->students()->count();
     }
+
+    public function co2Readings()
+{
+    return $this->hasMany(Co2Reading::class);
+}
+
+    public function getCo2ReadingsCountAttribute()
+    {
+        return $this->co2Readings()->count();
+    }
 }

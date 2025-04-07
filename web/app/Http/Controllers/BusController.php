@@ -228,16 +228,43 @@ class BusController extends Controller
         return view('roles.admin.assigner-mode');
     }
 
-    public function co2Show(Bus $bus)
-    {
-        // // get the co2 data for the bus
-        // $co2 = $bus->co2;
+   public function co2Show(Bus $bus)
+{
+    $readings = $bus->co2Readings()
+        
+        ->orderBy('reading_time')
+        ->get();
 
-        // // check if the bus has co2 data
-        // if (!$co2) {
-        //     return redirect()->back()->with('error', 'No CO2 data found for this bus');
-        // }
+    $dailySummaries = $bus->co2Readings()
+    ->orderByDesc('reading_date')
+    ->limit(10) // you can increase or make it paginate
+    ->get();
 
-        return view('roles.admin.co2', compact('bus'));
-    }
+    // Basic stats
+    $avg = round($readings->avg('avg_co2'));
+    $peak = $readings->max('peak_co2');
+    $min = $readings->min('min_co2');
+    $totalRedZone = $readings->sum('time_in_red_zone'); // in minutes
+
+    // Format red zone time
+    $hours = floor($totalRedZone / 60);
+    $minutes = $totalRedZone % 60;
+    $formattedRedZone = "{$hours}h {$minutes}m";
+
+    // Prepare graph data
+    $labels = $readings->pluck('reading_time')->map(fn ($t) => \Carbon\Carbon::parse($t)->format('g:i A'))->toArray();
+    $co2Data = $readings->pluck('avg_co2')->toArray();
+
+    return view('roles.admin.co2', [
+        'bus' => $bus,
+        'avg' => $avg,
+        'peak' => $peak,
+        'min' => $min,
+        'redZoneTime' => $formattedRedZone,
+        'dailySummaries' => $dailySummaries,
+        'chartLabels' => $labels,
+        'chartData' => $co2Data,
+    ]);
+}
+
 }

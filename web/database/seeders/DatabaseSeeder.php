@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'boarding_point' => 'Kumaranelloor',
             'drop_off_point' => 'Kumaranelloor',
              'user_id' => \App\Models\User::factory()->create([
-                 'name' => 'Amithamol Varghese',
+                 'name' => 'Neha Varghese',
                  'email' => 'student1@gmail.com',
                  'password' => bcrypt('password'),
                 ])->id,
@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
             'boarding_point' => 'Kottayam',
             'drop_off_point' => 'Kottayam',
             'user_id' => \App\Models\User::factory()->create([
-                'name' => 'Tintu Mon',
+                'name' => '',
                 'email' => 'student3@gmail.com',
                 'password' => bcrypt('password'),
             ])->id,
@@ -202,6 +202,69 @@ class DatabaseSeeder extends Seeder
 
         // assign the role of admin to the user
         $admin->user->assignRole('admin');
+
+
+
+      \App\Models\Co2Reading::create([
+    'bus_id' => 1,
+    'reading_date' => '2025-03-30',
+    'avg_co2' => 621,
+    'peak_co2' => 900,
+    'min_co2' => 415,
+    'time_in_red_zone' => 165, // minutes
+    'notes' => 'Heavy traffic on Kanjirapally Junction'
+]);
+
+\App\Models\Co2Reading::create([
+    'bus_id' => 1,
+    'reading_date' => '2025-03-29',
+    'avg_co2' => 588,
+    'peak_co2' => 780,
+    'min_co2' => 410,
+    'time_in_red_zone' => 70, // 1h 10m
+    'notes' => 'Light congestion near Erattupetta'
+]);
+
+\App\Models\Co2Reading::create([
+    'bus_id' => 1,
+    'reading_date' => '2025-03-28',
+    'avg_co2' => 635,
+    'peak_co2' => 850,
+    'min_co2' => 430,
+    'time_in_red_zone' => 120, // 2h
+    'notes' => 'Foggy weather and slow traffic'
+]);
+
+\App\Models\Co2Reading::create([
+    'bus_id' => 1,
+    'reading_date' => '2025-03-27',
+    'avg_co2' => 600,
+    'peak_co2' => 760,
+    'min_co2' => 405,
+    'time_in_red_zone' => 45, // 45m
+    'notes' => 'Smooth traffic mostly'
+]);
+
+\App\Models\Co2Reading::create([
+    'bus_id' => 1,
+    'reading_date' => '2025-03-26',
+    'avg_co2' => 710,
+    'peak_co2' => 920,
+    'min_co2' => 460,
+    'time_in_red_zone' => 185, // 3h 5m
+    'notes' => 'Traffic jam near Pala bypass'
+]);
+
+\App\Models\Co2Reading::create([
+    'bus_id' => 1,
+    'reading_date' => '2025-03-25',
+    'avg_co2' => 580,
+    'peak_co2' => 750,
+    'min_co2' => 400,
+    'time_in_red_zone' => 30, // 30m
+    'notes' => 'Clear route, minimal delays'
+]);
+
 
     }
 

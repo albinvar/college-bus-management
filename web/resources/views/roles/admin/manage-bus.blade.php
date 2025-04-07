@@ -190,6 +190,12 @@
                                                                 <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('admin.manage-bus.access-logs', ['bus' => $bus->id]) }}">
                                                                     Access Logs
                                                                 </a>
+                                                                 <div class="py-2 first:pt-0 last:pb-0">
+                                                                    <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('admin.co2', ['bus' => $bus->id]) }}">
+                                                                        Co2 Monitoring
+                                                                    </a>
+                                                                   
+                                                                </div>
                                                                 <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('admin.manage-bus.students', ['bus' => $bus->id]) }}">
                                                                     Students
                                                                 </a>
